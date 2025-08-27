@@ -1,0 +1,85 @@
+# Apuntes Git — Paso a Paso (para parcial)
+
+## ✅ Comandos ejecutados correctamente
+
+```bash
+git clone https://github.com/Edmar1/Prueba-para-parcial.git
+cd Prueba-para-parcial
+git status
+git config --global user.name "Edmar1"
+git config --global user.email "edmarleta@gmail.com"
+git add *
+git commit -am "Primer Commit"
+git push
+git branch dev1  /dev1 es el nombre se puede poner cualquiera
+git checkout dev1
+git push -u origin dev1
+git add *
+git commit -am "Prueba de rama"
+git push
+git push origin HEAD:main /Pasa lo de la rama a la principal
+git switch main
+git fetch
+git pull
+```
+
+---
+
+## ⚠️ Posibles errores y advertencias
+
+* Ejecutar `git status` fuera de un repositorio:
+
+  ```
+  fatal: not a git repository (or any of the parent directories): .git
+  ```
+
+* Ejecutar `git config` sin parámetros:
+
+  ```
+  error: no action specified
+  ```
+
+* Primer `git push` puede pedir autenticación:
+
+  ```
+  info: please complete authentication in your browser...
+  ```
+
+* Si no hay cambios nuevos:
+
+  ```
+  Everything up-to-date
+  ```
+
+* Al cambiar a `main` después de trabajar en otra rama puede aparecer:
+
+  ```
+  Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  ```
+
+  → Esto se resuelve con `git pull`.
+
+---
+
+## 💡 Nota sobre nombres de ramas
+
+* **`dev1` es solo un nombre de ejemplo.** Puedes usar cualquier nombre válido para tus ramas.
+* Reglas básicas:
+
+  * No usar espacios → mejor guiones o guion\_bajo (`nueva-funcionalidad`, `bugfix/error-login`).
+  * Usa nombres descriptivos para saber el propósito de la rama.
+  * Evita caracteres especiales como `?`, `*`, `!`.
+
+📌 Ejemplos:
+
+```bash
+git branch feature/login
+```
+
+```bash
+git branch bugfix/error-login
+```
+
+```bash
+git branch hotfix/parche-rapido
+```
