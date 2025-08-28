@@ -1,0 +1,178 @@
+
+# Apuntes – Conexiones entre Clases en C\#
+
+##  1. **Tipos de relaciones entre clases**
+
+En POO (Programación Orientada a Objetos) existen varias formas de conectar clases:
+
+1. **Asociación (Uno a Uno / Uno a Muchos)**
+
+   * Una clase contiene un objeto o varios objetos de otra clase.
+   * Ejemplo:
+
+     ```csharp
+     public class Persona
+     {
+         public Direccion Direccion { get; set; } // 1 a 1
+         public List<VideoJuego> VideoJuegos { get; set; } = new List<VideoJuego>(); // 1 a muchos
+     }
+     ```
+
+2. **Herencia (IS-A)**
+
+   * Una clase hereda de otra.
+   * Relación "es un".
+   * Ejemplo:
+
+     ```csharp
+     public class Persona { }
+     public class Estudiante : Persona { }  // Un estudiante ES una persona
+     ```
+
+3. **Composición / Agregación (HAS-A)**
+
+   * Una clase está formada por otras clases.
+   * Relación "tiene un".
+   * Ejemplo:
+
+     ```csharp
+     public class Persona
+     {
+         public Tipo Tipo { get; set; }   // Una persona TIENE un tipo (Casado, Soltero)
+     }
+     ```
+
+---
+
+## 🔹 2. **Uno a Uno**
+
+👉 Una instancia de una clase está vinculada con **una sola** de otra clase.
+
+```csharp
+public class Tipo
+{
+    public int Id { get; set; }
+    public string Nombre { get; set; }
+}
+
+public class Persona
+{
+    public Tipo Tipo { get; set; } // Una persona tiene UN tipo
+}
+```
+
+---
+
+## 🔹 3. **Uno a Muchos**
+
+👉 Una clase contiene una **colección de objetos** de otra clase.
+
+```csharp
+public class VideoJuego
+{
+    public int Id { get; set; }
+    public string Nombre { get; set; }
+}
+
+public class Persona
+{
+    public List<VideoJuego> VideoJuegos { get; set; } = new List<VideoJuego>();
+    // Una persona puede tener MUCHOS videojuegos
+}
+```
+
+Uso:
+
+```csharp
+var persona = new Persona();
+persona.VideoJuegos.Add(new VideoJuego() { Id = 1, Nombre = "Zelda" });
+persona.VideoJuegos.Add(new VideoJuego() { Id = 2, Nombre = "Minecraft" });
+```
+
+---
+
+## 🔹 4. **Herencia**
+
+👉 Una clase puede heredar atributos y métodos de otra.
+
+```csharp
+public class Persona
+{
+    public string Nombre { get; set; }
+}
+
+public class Estudiante : Persona
+{
+    public string Carnet { get; set; }
+}
+```
+
+Uso:
+
+```csharp
+Estudiante est = new Estudiante();
+est.Nombre = "Pepito";   // Viene de Persona
+est.Carnet = "E123";     // Viene de Estudiante
+```
+
+---
+
+## 🔹 5. **Resumen gráfico (ejemplo)**
+
+```
+Persona
+ ├── Tipo (1 a 1)
+ ├── VideoJuegos (1 a muchos)
+ └── Estudiante (hereda de Persona)
+```
+
+---
+
+## 🔹 6. **Consejo para parciales**
+
+* **Uno a uno** → `public Clase Nombre { get; set; }`
+* **Uno a muchos** → `public List<Clase> Nombre { get; set; } = new List<Clase>();`
+* **Herencia** → `class Hija : Padre { }`
+
+---
+
+📌 Con estos tres conceptos puedes explicar la mayoría de relaciones entre clases en C# (es lo mismo que verías en UML).
+
+---
+
+¿Quieres que te arme también un **diagrama UML simplificado** con Person → Tipo, Person → Videojuegos y Estudiante → Persona para que lo tengas de apoyo visual?
+                ┌───────────────┐
+                │     Tipos     │
+                ├───────────────┤
+                │ Id : int       │
+                │ Nombre : string│
+                └───────────────┘
+                        ▲ (1)
+                        │
+                ┌───────────────┐
+                │   Personas    │
+                ├───────────────┤
+                │ Id : int       │
+                │ Nombre : string│
+                │ Fecha : DateTime│
+                │ Activo : bool   │
+                │ Salario : decimal│
+                │ Tipo : Tipos     │ (1 a 1)
+                │ VideoJuegos : List<VideoJuegos> │ (1 a muchos)
+                └───────────────┘
+                        ▲
+             (herencia) │
+                        │
+                ┌───────────────┐
+                │  Estudiantes  │
+                ├───────────────┤
+                │ Carnet : string│
+                └───────────────┘
+
+                ┌────────────────┐
+                │  VideoJuegos   │
+                ├────────────────┤
+                │ Id : int        │
+                │ Nombre : string │
+                └────────────────┘
+
