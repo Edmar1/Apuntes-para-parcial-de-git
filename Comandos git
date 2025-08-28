@@ -1,5 +1,5 @@
 # Apuntes Git — Paso a Paso (para parcial)
-
+dotnet new console -n Nombre
 ## ✅ Comandos ejecutados correctamente
 
 ```bash
